@@ -9,6 +9,10 @@ import { SECOND } from "../platform/helpers"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 export default class Notice {
+  timeout: any
+  onclose: any
+  el: any
+  closed: any
   constructor(type, content, timeout, onclose) {
     this.add = this.add.bind(this)
     this.close = this.close.bind(this)

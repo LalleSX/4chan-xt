@@ -11,6 +11,11 @@ import { dict, HOUR } from "../platform/helpers"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 export default class DataBoard {
+  static keys: string[]
+  changes: any[]
+  key: any
+  sync: any
+  data: any
   static initClass() {
     this.keys = ['hiddenThreads', 'hiddenPosts', 'lastReadPosts', 'yourPosts', 'watchedThreads', 'watcherLastModified', 'customTitles']
   }

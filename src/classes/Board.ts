@@ -8,6 +8,12 @@ import SimpleDict from "./SimpleDict"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 export default class Board {
+  ID: any
+  boardID: any
+  siteID: any
+  threads: SimpleDict<unknown>
+  posts: SimpleDict<unknown>
+  config: any
   toString() { return this.ID }
 
   constructor(ID) {

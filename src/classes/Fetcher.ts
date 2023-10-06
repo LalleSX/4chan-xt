@@ -44,6 +44,12 @@ export default class Fetcher {
     '[blue]':     {innerHTML: "<span class=\"mu-b\">"},
     '[/blue]':    {innerHTML: "</span>"}
   }
+  boardID: any
+  threadID: any
+  postID: any
+  root: any
+  quoter: any
+  static flagCSS: any
 
   constructor(boardID, threadID, postID, root, quoter) {
     let post, thread

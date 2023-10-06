@@ -8,6 +8,26 @@ import SimpleDict from "./SimpleDict"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 export default class Thread {
+  ID: any
+  board: any
+  threadID: any
+  boardID: any
+  siteID: any
+  fullID: string
+  posts: SimpleDict<unknown>
+  isDead: boolean
+  isHidden: boolean
+  isSticky: boolean
+  isClosed: boolean
+  isArchived: boolean
+  postLimit: boolean
+  fileLimit: boolean
+  lastPost: number
+  ipCount: any
+  json: null
+  OP: null
+  catalogView: null
+  nodes: { root: any }
   toString() { return this.ID }
 
   constructor(ID, board) {
