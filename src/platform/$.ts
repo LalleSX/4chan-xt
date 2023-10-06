@@ -9,25 +9,25 @@
 // http://api.jquery.com/
 
 import Notice from "../classes/Notice"
-import { c, Conf, d, doc, g } from "../globals/globals"
+import { c, Conf, doc, g } from "../globals/globals"
 import CrossOrigin from "./CrossOrigin"
 import { debounce, dict, MINUTE, platform, SECOND } from "./helpers"
 
 // not chainable
 const $ = (selector, root = document.body) => root.querySelector(selector)
 
-$.id = id => d.getElementById(id)
+$.id = id => document.getElementById(id)
 
 $.ready = function(fc) {
-  if (d.readyState !== 'loading') {
+  if (document.readyState !== 'loading') {
     $.queueTask(fc)
     return
   }
   var cb = function() {
-    $.off(d, 'DOMContentLoaded', cb)
+    $.off(document, 'DOMContentLoaded', cb)
     return fc()
   }
-  return $.on(d, 'DOMContentLoaded', cb)
+  return $.on(document, 'DOMContentLoaded', cb)
 }
 
 $.formData = function(form) {
@@ -174,13 +174,13 @@ $.ajax = (function() {
       , false)
     })
 
-    $.on(d, '4chanXAjaxProgress', function(e) {
+    $.on(document, '4chanXAjaxProgress', function(e) {
       let req
       if (!(req = requests[e.detail.id])) { return }
       return req.upload.onprogress.call(req.upload, e.detail)
     })
 
-    return $.on(d, '4chanXAjaxLoadend', function(e) {
+    return $.on(document, '4chanXAjaxLoadend', function(e) {
       let req
       if (!(req = requests[e.detail.id])) { return }
       delete requests[e.detail.id]
@@ -315,7 +315,7 @@ $.addStyle = function(css, id, test='head') {
   const style = $.el('style',
     {textContent: css})
   if (id != null) { style.id = id }
-  $.onExists(doc, test, () => $.add(d.head, style))
+  $.onExists(doc, test, () => $.add(document.head, style))
   return style
 }
 
@@ -325,26 +325,26 @@ $.addCSP = function(policy) {
     content:   policy
   }
   )
-  if (d.head) {
-    $.add(d.head, meta)
+  if (document.head) {
+    $.add(document.head, meta)
     return $.rm(meta)
   } else {
-    const head = $.add((doc || d), $.el('head'))
+    const head = $.add((doc || document), $.el('head'))
     $.add(head, meta)
     return $.rm(head)
   }
 }
 
 $.x = function(path, root) {
-  if (!root) { root = d.body }
+  if (!root) { root = document.body }
   // XPathResult.ANY_UNORDERED_NODE_TYPE === 8
-  return d.evaluate(path, root, null, 8, null).singleNodeValue
+  return document.evaluate(path, root, null, 8, null).singleNodeValue
 }
 
 $.X = function(path, root) {
-  if (!root) { root = d.body }
+  if (!root) { root = document.body }
   // XPathResult.ORDERED_NODE_SNAPSHOT_TYPE === 7
-  return d.evaluate(path, root, null, 7, null)
+  return document.evaluate(path, root, null, 7, null)
 }
 
 $.addClass = function(el, ...classNames) {
@@ -364,9 +364,9 @@ $.rm = el => el?.remove()
 $.rmAll = root => // https://gist.github.com/MayhemYDG/8646194
 root.textContent = null
 
-$.tn = s => d.createTextNode(s)
+$.tn = s => document.createTextNode(s)
 
-$.frag = () => d.createDocumentFragment()
+$.frag = () => document.createDocumentFragment()
 
 $.nodes = function(nodes) {
   if (!(nodes instanceof Array)) {
@@ -389,10 +389,18 @@ $.before = (root, el) => root.parentNode.insertBefore($.nodes(el), root)
 
 $.replace = (root, el) => root.parentNode.replaceChild($.nodes(el), root)
 
-$.el = function(tag, properties, properties2) {
-  const el = d.createElement(tag)
-  if (properties) { $.extend(el, properties) }
-  if (properties2) { $.extend(el, properties2) }
+$.el = function(tag, properties?, properties2?) {
+  const el = document.createElement(tag)
+  if (properties) {
+    if (properties2) {
+      for (const key in properties2) {
+        el[key] = properties2[key]
+      }
+    }
+    for (const key in properties) {
+      el[key] = properties[key]
+    }
+  }
   return el
 }
 
@@ -416,10 +424,10 @@ $.one = function(el, events, handler) {
   return $.on(el, events, cb)
 }
 
-$.event = function(event, detail, root=d) {
+$.event = function(event, detail, root=document) {
   if (!globalThis.chrome?.extension) {
     if ((detail != null) && (typeof cloneInto === 'function')) {
-      detail = cloneInto(detail, d.defaultView)
+      detail = cloneInto(detail, document.defaultView)
     }
   }
   return root.dispatchEvent(new CustomEvent(event, {bubbles: true, cancelable: true, detail}))
@@ -447,7 +455,7 @@ if (platform === 'userscript') {
           return obj
         }
       }
-      return $.event = (event, detail, root=d) => root.dispatchEvent(new CustomEvent(event, {bubbles: true, cancelable: true, detail: clone(detail)}))
+      return $.event = (event, detail, root=document) => root.dispatchEvent(new CustomEvent(event, {bubbles: true, cancelable: true, detail: clone(detail)}))
     }
   })()
 }
@@ -489,25 +497,19 @@ $.debounce = function(wait, fn) {
   }
 }
 
-$.queueTask = (function() {
-  const taskQueue = []
-  const execTask = function() {
-    const [func, ...args] = taskQueue.shift()
-    func(...args)
+$.queueTask = function(fn, ...args) {
+  if (typeof fn === 'string') {
+    fn = $.global(fn)
   }
-  return function() {
-    taskQueue.push(arguments)
-    // setTimeout is throttled in background tabs on firefox
-    Promise.resolve().then(execTask)
-  }
-})()
+  return setTimeout(fn, 0, ...args)
+}
 
 $.global = function(fn, data) {
   if (doc) {
     const script = $.el('script',
       {textContent: `(${fn}).call(document.currentScript.dataset);`})
     if (data) { $.extend(script.dataset, data) }
-    $.add((d.head || doc), script)
+    $.add((document.head || doc), script)
     $.rm(script)
     return script.dataset
   } else {

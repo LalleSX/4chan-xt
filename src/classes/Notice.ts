@@ -9,11 +9,11 @@ import { SECOND } from "../platform/helpers"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 export default class Notice {
-  timeout: any
+  timeout: number
   onclose: any
   el: any
-  closed: any
-  constructor(type, content, timeout, onclose) {
+  closed: boolean
+  constructor(type: string, content: string | any[] | Text, timeout: number, onclose: () => boolean) {
     this.add = this.add.bind(this)
     this.close = this.close.bind(this)
     this.timeout = timeout
@@ -31,7 +31,7 @@ export default class Notice {
     $.ready(this.add)
   }
 
-  setType(type) {
+  setType(type: any) {
     return this.el.className = `notification ${type}`
   }
 

@@ -91,7 +91,12 @@ var Filter = {
               $.tn(line),
               $.el('br'),
               $.tn(err.message)
-            ], 60)
+            ], 60, () => {
+              // Remove the invalid filter from the settings.
+              Filter.removeFilters(key, line)
+              return true
+            }
+            )
             continue
           }
         }

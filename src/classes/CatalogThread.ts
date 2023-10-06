@@ -1,13 +1,13 @@
 import $ from "../platform/$"
 
 export default class CatalogThread {
-  ID: any
+  ID: string
   thread: any
-  board: any
+  board: string
   nodes: { root: any; thumb: any; icons: any; postCount: any; fileCount: any; pageCount: any; replies: any }
   toString() { return this.ID }
 
-  constructor(root, thread) {
+  constructor(root: any, thread: any) {
     this.thread = thread
     this.ID    = this.thread.ID
     this.board = this.thread.board
