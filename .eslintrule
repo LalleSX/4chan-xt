@@ -1,0 +1,7 @@
+    "import/no-cycle": [
+        "error",
+        {
+            "maxDepth": 10000000,
+            "ignoreExternal": false
+        }
+    ],

@@ -32,13 +32,6 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "import/no-cycle": [
-      "error",
-      {
-        "maxDepth": 10000000,
-        "ignoreExternal": false
-      }
-    ],
     "semi": [
       "error",
       "never"
