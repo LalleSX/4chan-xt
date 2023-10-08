@@ -425,11 +425,6 @@ $.one = function(el, events, handler) {
 }
 
 $.event = function(event, detail, root=document) {
-  if (!globalThis.chrome?.extension) {
-    if ((detail != null) && (typeof cloneInto === 'function')) {
-      detail = cloneInto(detail, document.defaultView)
-    }
-  }
   return root.dispatchEvent(new CustomEvent(event, {bubbles: true, cancelable: true, detail}))
 }
 

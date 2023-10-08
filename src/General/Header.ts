@@ -378,7 +378,7 @@ var Header = {
   },
 
   toggleLinkJustify() {
-    $.event('CloseMenu')
+    $.event('CloseMenu', this)
     const centered = this.nodeName === 'INPUT' ?
       this.checked : undefined
     Header.setLinkJustify(centered)
@@ -397,7 +397,7 @@ var Header = {
   },
 
   toggleBarFixed() {
-    $.event('CloseMenu')
+    $.event('CloseMenu', this)
 
     Header.setBarFixed(this.checked)
 
@@ -415,7 +415,7 @@ var Header = {
   },
 
   toggleShortcutIcons() {
-    $.event('CloseMenu')
+    $.event('CloseMenu', this)
 
     Header.setShortcutIcons(this.checked)
 
@@ -425,7 +425,7 @@ var Header = {
 
   setBarVisibility(hide) {
     Header.headerToggler.checked = hide
-    $.event('CloseMenu');
+    $.event('CloseMenu', this);
     (hide ? $.addClass : $.rmClass)(Header.bar, 'autohide')
     return (hide ? $.addClass : $.rmClass)(doc, 'autohide')
   },
@@ -475,7 +475,7 @@ var Header = {
 
   setBarPosition(bottom) {
     if (Header.barPositionToggler) Header.barPositionToggler.checked = bottom
-    $.event('CloseMenu')
+    $.event('CloseMenu', this)
     const args = bottom ? [
       'bottom-header',
       'top-header',
@@ -502,7 +502,7 @@ var Header = {
   },
 
   toggleFooterVisibility() {
-    $.event('CloseMenu')
+    $.event('CloseMenu', this)
     const hide = this.nodeName === 'INPUT' ?
       this.checked
     :
