@@ -31,7 +31,7 @@ import NavLinksPage from './Index/NavLinks.html'
 import PageList from './Index/PageList.html'
 import UI from './UI'
 
-var Index = {
+const Index = {
   showHiddenThreads: false,
   changed: {},
 

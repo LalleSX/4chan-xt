@@ -11,7 +11,7 @@ import ReportPage from './Report/ArchiveReport.html'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
-var Report = {
+const Report = {
   init() {
     let match
     if (!(match = location.search.match(/\bno=(\d+)/))) { return }

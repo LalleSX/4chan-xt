@@ -6,7 +6,7 @@ import $ from "../platform/$"
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
-var PSAHiding = {
+const PSAHiding = {
   init() {
     if (!Conf['Announcement Hiding'] || !g.SITE.selectors.psa) { return }
     $.addClass(doc, 'hide-announcement')

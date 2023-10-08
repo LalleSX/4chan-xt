@@ -20,7 +20,7 @@ if (platform === 'crx') {
     return (params, cb) => chrome.runtime.sendMessage(params, id => callbacks[id] = cb)
   })()
 }
-var CrossOrigin = {
+const CrossOrigin = {
   binary(url, cb, headers = dict()) {
     // XXX https://forums.lanik.us/viewtopic.php?f=64&t=24173&p=78310
     url = url.replace(/^((?:https?:)?\/\/(?:\w+\.)?(?:4chan|4channel|4cdn)\.org)\/adv\//, '$1//adv/')

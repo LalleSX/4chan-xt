@@ -8,7 +8,7 @@ import $ from "../platform/$"
  * DS207: Consider shorter variations of null checks
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
-var MarkNewIPs = {
+const MarkNewIPs = {
   init() {
     if ((g.SITE.software !== 'yotsuba') || (g.VIEW !== 'thread') || !Conf['Mark New IPs']) { return }
     return Callbacks.Thread.push({

@@ -3,12 +3,7 @@ import UI from "../General/UI"
 import { Conf,g } from "../globals/globals"
 import $ from "../platform/$"
 
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
-var Menu = {
+const Menu = {
   menu:   null,
   init() {
     if (!['index', 'thread'].includes(g.VIEW) || !Conf['Menu']) { return }

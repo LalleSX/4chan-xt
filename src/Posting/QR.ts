@@ -24,7 +24,7 @@ import QuickReplyPage from './QR/QuickReply.html'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
-var QR = {
+const QR = {
   mimeTypes: ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/vnd.adobe.flash.movie', 'application/x-shockwave-flash', 'video/webm'],
 
   validExtension: /\.(jpe?g|png|gif|pdf|swf|webm)$/i,

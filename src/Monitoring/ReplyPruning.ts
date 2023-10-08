@@ -11,7 +11,7 @@ import QuoteThreading from "../Quotelinks/QuoteThreading"
  * DS104: Avoid inline assignments
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
-var ReplyPruning = {
+const ReplyPruning = {
   init() {
     if ((g.VIEW !== 'thread') || !Conf['Reply Pruning']) { return }
 

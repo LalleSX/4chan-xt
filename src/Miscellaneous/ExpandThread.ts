@@ -13,7 +13,7 @@ import { dict } from "../platform/helpers"
  * DS102: Remove unnecessary code created because of implicit returns
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
-var ExpandThread = {
+const ExpandThread = {
   statuses: dict(),
   init() {
     if (!((g.VIEW === 'index') && Conf['Thread Expansion'])) { return }

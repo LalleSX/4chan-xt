@@ -29,7 +29,7 @@ import UnreadIndex from './UnreadIndex'
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
-var ThreadWatcher = {
+const ThreadWatcher = {
   init() {
     let sc
     if (!(this.enabled = Conf['Thread Watcher'])) { return }

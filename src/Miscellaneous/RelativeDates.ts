@@ -11,7 +11,7 @@ import { DAY, HOUR, MINUTE, SECOND } from "../platform/helpers"
  * DS205: Consider reworking code to avoid use of IIFEs
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
-var RelativeDates = {
+const RelativeDates = {
   INTERVAL: 30000,
 
   init() {
