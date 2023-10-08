@@ -468,7 +468,7 @@ export var hoverend = function (e) {
   if (this.cb) { return this.cb.call(this) }
 }
 
-export const checkbox = function (name, text, checked) {
+export const checkbox = function (name, text, checked?) {
   if (checked == null) { checked = Conf[name] }
   const label = $.el('label')
   const input = $.el('input', {type: 'checkbox', name, checked})
