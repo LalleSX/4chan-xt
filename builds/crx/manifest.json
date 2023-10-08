@@ -103,7 +103,9 @@
   ],
   "applications": {
     "gecko": {
-      "id": "4chan-x@4chan-x.net"
+      "id": "4chan-x@4chan-x.net",
+      "update_url": "https://github.com/TuxedoTako/4chan-xt/releasesupdates.json"
     }
-  }
+  },
+  "update_url": "https://github.com/TuxedoTako/4chan-xt/releasesupdates.xml"
 }
