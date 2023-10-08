@@ -2,17 +2,12 @@ import { g } from "../globals/globals"
 import $ from "../platform/$"
 import SimpleDict from "./SimpleDict"
 
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
- */
 export default class Thread {
-  ID: any
+  ID: number
   board: any
-  threadID: any
-  boardID: any
-  siteID: any
+  threadID: number
+  boardID: string
+  siteID: string
   fullID: string
   posts: SimpleDict<unknown>
   isDead: boolean
@@ -35,7 +30,7 @@ export default class Thread {
     this.ID         = +ID
     this.threadID   = this.ID
     this.boardID    = this.board.ID
-    this.siteID     = g.SITE.ID
+    this.siteID     = this.board.siteID
     this.fullID     = `${this.board}.${this.ID}`
     this.posts      = new SimpleDict()
     this.isDead     = false
@@ -61,6 +56,7 @@ export default class Thread {
 
   setPage(pageNum) {
     let icon
+    OP = this.posts.get(this.ID)
     const {info, reply} = this.OP.nodes
     if (!(icon = $('.page-num', info))) {
       icon = $.el('span', {className: 'page-num'})

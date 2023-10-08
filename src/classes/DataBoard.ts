@@ -20,7 +20,7 @@ export default class DataBoard {
     this.keys = ['hiddenThreads', 'hiddenPosts', 'lastReadPosts', 'yourPosts', 'watchedThreads', 'watcherLastModified', 'customTitles']
   }
 
-  constructor(key, sync, dontClean) {
+  constructor(key: string, sync: boolean, dontClean: boolean) {
     this.changes = []
     this.onSync = this.onSync.bind(this)
     this.key = key

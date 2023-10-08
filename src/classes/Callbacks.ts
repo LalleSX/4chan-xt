@@ -20,7 +20,7 @@ export default class Callbacks {
     this.CatalogThreadNative = new Callbacks('Catalog Thread')
   }
 
-  constructor(type) {
+  constructor(type: string) {
     this.type = type
     this.keys = []
   }

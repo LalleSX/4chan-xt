@@ -44,14 +44,14 @@ export default class Fetcher {
     '[blue]':     {innerHTML: "<span class=\"mu-b\">"},
     '[/blue]':    {innerHTML: "</span>"}
   }
-  boardID: any
-  threadID: any
-  postID: any
+  boardID: string
+  threadID: number
+  postID: number
   root: any
   quoter: any
   static flagCSS: any
 
-  constructor(boardID, threadID, postID, root, quoter) {
+  constructor(boardID: string, threadID: number, postID: number, root: any, quoter: any) {
     let post, thread
     this.boardID = boardID
     this.threadID = threadID

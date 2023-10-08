@@ -29,7 +29,7 @@ const Unread = {
 
     if (Conf['Remember Last Read Post']) {
       $.sync('Remember Last Read Post', enabled => Conf['Remember Last Read Post'] = enabled)
-      this.db = new DataBoard('lastReadPosts', this.sync)
+      this.db = new DataBoard('lastReadPosts', this.sync, true)
     }
 
     this.hr = $.el('hr', {

@@ -16,7 +16,7 @@ export default class Board {
   config: any
   toString() { return this.ID }
 
-  constructor(ID) {
+  constructor(ID: string) {
     this.ID = ID
     this.boardID = this.ID
     this.siteID  = g.SITE.ID
