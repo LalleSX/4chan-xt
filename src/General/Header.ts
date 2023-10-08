@@ -437,13 +437,13 @@ var Header = {
       !$.hasClass(Header.bar, 'autohide')
 
     Conf['Header auto-hide'] = hide
-    $.set('Header auto-hide', hide)
+    $.set('Header auto-hide', hide, true)
     Header.setBarVisibility(hide)
     const message = `The header bar will ${hide ?
       'automatically hide itself.'
     :
       'remain visible.'}`
-    return new Notice('info', message, 2)
+    return new Notice('info', message, 2, true)
   },
 
   setHideBarOnScroll(hide) {

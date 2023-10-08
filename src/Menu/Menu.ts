@@ -9,6 +9,7 @@ import $ from "../platform/$"
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 var Menu = {
+  menu:   null,
   init() {
     if (!['index', 'thread'].includes(g.VIEW) || !Conf['Menu']) { return }
 

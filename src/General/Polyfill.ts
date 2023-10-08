@@ -8,7 +8,7 @@ import $ from "../platform/$"
 const Polyfill = {
   init() {
     this.toBlob()
-    $.global(this.toBlob)
+    $.global(this.toBlob, 'HTMLCanvasElement.prototype.toBlob')
     if (!Element.prototype.matches) { Element.prototype.matches = Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector }
   },
   // This function is converted to a string and then put in a script tag.

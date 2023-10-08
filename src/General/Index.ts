@@ -70,7 +70,7 @@ var Index = {
       ) : (
         Conf['Index Sort']
       ) }
-    this.currentPage = this.getCurrentPage()
+this.currentPage = this.getCurrentPage()
     this.processHash()
 
     $.addClass(doc, 'index-loading', `${Conf['Index Mode'].replace(/\ /g, '-')}-mode`)
@@ -199,7 +199,7 @@ var Index = {
           }
         })
         $.addClass(doc, 'hats-enabled')
-        $.addStyle(`.catalog-thread::after {background-image: url(${g.SITE.Build.hat.src});}`)
+        $.addStyle(`.catalog-thread::after {background-image: url(${g.SITE.Build.hat.src});}`, 'hats')
       }
 
       const board = $('.board')
@@ -250,12 +250,13 @@ var Index = {
   endNotice: (function() {
     let notify = false
     const reset = () => notify = false
-    return function() {
+    const lastPage = function() {
       if (notify) { return }
       notify = true
-      new Notice('info', "Last page reached.", 2)
+      new Notice('info', "Last page reached.", 2, reset)
       return setTimeout(reset, 3 * SECOND)
     }
+    return lastPage
   })(),
 
   menu: {
@@ -277,7 +278,7 @@ var Index = {
             'Hide'
           if (this.cb) { $.off(this.el, 'click', this.cb) }
           this.cb = function() {
-            $.event('CloseMenu')
+            $.event('CloseMenu', null, Menu.menu)
             return Index.toggleHide(thread)
           }
           $.on(this.el, 'click', this.cb)
@@ -337,7 +338,7 @@ var Index = {
           return n++
         }
       })
-      if (n) { return $.event('IndexRefresh') }
+      if (n) { return $.event('IndexRefresh', null) }
     },
 
     toggleHiddenThreads() {

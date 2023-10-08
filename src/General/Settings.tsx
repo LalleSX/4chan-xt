@@ -812,16 +812,27 @@ vp-replace
     return changes
   },
 
-  loadSettings(data, cb) {
-    if (data.version.split('.')[0] === '2') { // https://github.com/loadletter/4chan-x
-      data = Settings.convertFrom.loadletter(data)
-    } else if (data.version !== g.VERSION) {
-      Settings.upgrade(data.Conf, data.version)
+  loadSettings(data, callback) {
+    let key, val
+    const changes = Settings.convertFrom.loadletter(data)
+    for (key in changes) {
+      val = changes[key]
+      if (val == null) { delete data[key] }
     }
-    return $.clear(function(err) {
-      if (err) { return cb(err) }
-      return $.set(data.Conf, cb)
-    })
+    const version = data.version
+    delete data.version
+    const changes2 = Settings.upgrade(data, version)
+    for (key in changes2) {
+      val = changes2[key]
+      if (val == null) { delete data[key] }
+    }
+    return $.set(data, function(err) {
+      if (err) {
+        return callback(err)
+      } else {
+        return callback(null, changes, changes2)
+      }
+    }, true)
   },
 
   reset() {
@@ -1126,12 +1137,10 @@ vp-replace
   },
 
   togglecss() {
-    if (($('textarea[name=usercss]', $.x('ancestor::fieldset[1]', this)).disabled = ($.id('apply-css').disabled = !this.checked))) {
-      CustomCSS.rmStyle()
-    } else {
-      CustomCSS.addStyle()
-    }
-    return $.cb.checked.call(this)
+    const checked = this.checked
+    $('#usercss').disabled = !checked
+    $('#apply-css').disabled = !checked
+    return CustomCSS.update()
   },
 
   keybinds(section) {

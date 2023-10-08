@@ -33,7 +33,7 @@ var BoardConfig = {
       for (var board of this.response.boards) {
         boards[board.board] = board
       }
-      $.set('boardConfig', {boards, lastChecked: Date.now()})
+      $.set('boardConfig', {boards, lastChecked: Date.now()}, true)
     } else {
       ({boards} = Conf['boardConfig'])
       const err = (() => { switch (this.status) {
@@ -41,7 +41,7 @@ var BoardConfig = {
         case 200: return 'Invalid Data'
         default:          return `Error ${this.statusText} (${this.status})`
       } })()
-      new Notice('warning', `Failed to load board configuration. ${err}`, 20)
+      new Notice('warning', `Failed to load board configuration. ${err}`, 20, false)
     }
     return BoardConfig.set(boards)
   },

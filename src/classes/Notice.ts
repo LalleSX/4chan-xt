@@ -13,7 +13,7 @@ export default class Notice {
   onclose: any
   el: any
   closed: boolean
-  constructor(type: string, content: string | any[] | Text, timeout: number, onclose: () => boolean) {
+  constructor(type: string, content: string | any[] | Text, timeout: number, onclose: boolean | (() => boolean)) {
     this.add = this.add.bind(this)
     this.close = this.close.bind(this)
     this.timeout = timeout
@@ -49,9 +49,12 @@ export default class Notice {
   }
 
   close() {
+    if (this.closed) { return }
     this.closed = true
+    this.el.style.opacity = 0
+    $.off(this.el.firstElementChild, 'click', this.close)
     $.off(d, 'visibilitychange', this.add)
     $.rm(this.el)
-    return this.onclose?.()
+    if (this.onclose) { return $.queueTask(this.onclose) }
   }
 }
